@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService {
         for (User u : userList) {
             UserVO newUser = new UserVO();
             newUser.setId(u.getId());
-            newUser.setFirstname(u.getFirstName());
-            newUser.setLastname(u.getLastName());
+            newUser.setFirstName(u.getFirstName()); // correspond maintenant à UserVO
+            newUser.setLastName(u.getLastName());   // correspond maintenant à UserVO
             res.add(newUser);
         }
 
@@ -36,19 +36,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createUser(UserVO userVO) {
         User newUser = new User();
-        newUser.setFirstName(userVO.getFirstname());
-        newUser.setLastName(userVO.getLastname());
+        newUser.setFirstName(userVO.getFirstName());
+        newUser.setLastName(userVO.getLastName());
         basicRepositoryUser.save(newUser);
     }
 
     @Override
     public void updateUser(Long id, UserVO userVO) {
-        if (basicRepositoryUser.findById(id).isPresent()) {
-            User u = basicRepositoryUser.findById(id).get();
-            u.setFirstName(userVO.getFirstname());
-            u.setLastName(userVO.getLastname());
+        basicRepositoryUser.findById(id).ifPresent(u -> {
+            u.setFirstName(userVO.getFirstName());
+            u.setLastName(userVO.getLastName());
             basicRepositoryUser.save(u);
-        }
+        });
     }
 
     @Override
@@ -57,5 +56,4 @@ public class UserServiceImpl implements UserService {
             basicRepositoryUser.deleteById(id);
         }
     }
-
 }

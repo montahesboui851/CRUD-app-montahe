@@ -1,24 +1,38 @@
 package com.example.demo.persistence.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USERS")
-@Getter
-@Setter
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "USER_ID", nullable = false)
     private Long id;
 
-    @Column(name = "USER_FIRSTNAME")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "USER_LASTNAME")
+    @Column(name = "last_name")
     private String lastName;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }
